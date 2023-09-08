@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import CreateComponent from "./CreateComponent";
+import RenderQuery from './RenderQuery';
 
 const data = {
   PARENT: {
@@ -16,13 +17,13 @@ const data = {
         name: 'CREATE',
         value: '',
         set: false,
+        selfSyn: {
+          open: "{",
+          close: "}"
+        },
         NODE: {
           name: "",
           set: false,
-          selfSyn: {
-            open: "{",
-            close: "}"
-          },
           cols: [
   
           ]
@@ -60,7 +61,7 @@ function App() {
       parentAst={ast} 
       />}
       <div style={{ marginTop: 20 }}>
-        Query: {genQuery}
+        Query: <RenderQuery ast={ast} />
       </div>
     </div>
   );

@@ -42,6 +42,15 @@ function CreateCols(props) {
                         colType,
                     }) 
                     setCol(__cols)
+                    let cr = { PARENT: { ...parentAst.PARENT, values: parentAst.PARENT.values.map((x) => {
+                        if (x.name === 'CREATE') {
+                            const data = { ...x, NODE: { ...x.NODE, cols: __cols } }
+                            return data;
+                        }
+                        return x
+                    }) }};
+                    console.log(cr);
+                    setParentAst(cr) 
                 }
             }}>
                 Create

@@ -25,10 +25,11 @@ function CreateComponent(props) {
                 setAst({...ast, NODE: { ...ast.NODE, name: nodeName, set: true }})
                 let cr = { PARENT: { ...parentAst.PARENT, values: parentAst.PARENT.values.map((x) => {
                     if (x.name === 'CREATE') {
-                        return { ...ast.NODE, name: 'CREATE', value: nodeName, set: true }
+                        return { ...x, name: 'CREATE', value: nodeName, set: true }
                     }
                     return x
                 }) }};
+                console.log('cr', cr);
                 setParentAst(cr) 
             }}>Create</button>
         </div>
