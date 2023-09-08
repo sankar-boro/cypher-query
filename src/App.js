@@ -1,6 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
+import MatchComponent from "./MatchComponent";
 import CreateComponent from "./CreateComponent";
 import RenderQuery from './RenderQuery';
 
@@ -32,6 +32,17 @@ const data = {
       {
         name: 'MATCH',
         set: false,
+        selfSyn: {
+          open: "(",
+          close: ")"
+        },
+        NODE: {
+          name: "",
+          set: false,
+          cols: [
+  
+          ]
+        }
       }
     ]
   }
@@ -53,13 +64,23 @@ function App() {
             setAst(t)
           }}>{v.name}</div>
         })}
-      </div> : <CreateComponent 
-      activeParent={activeParent} 
-      setGenQuery={setGenQuery} 
-      genQuery={genQuery} 
-      setParentAst={setAst} 
-      parentAst={ast} 
-      />}
+      </div> : null}
+      {
+        ast.PARENT.set && ast.PARENT.name === 'CREATE' ? <CreateComponent 
+        activeParent={activeParent} 
+        setGenQuery={setGenQuery} 
+        genQuery={genQuery} 
+        setParentAst={setAst} 
+        parentAst={ast} 
+        />: null
+      }
+      {
+        ast.PARENT.set && ast.PARENT.name === 'MATCH' ? <MatchComponent activeParent={activeParent} 
+        setGenQuery={setGenQuery} 
+        genQuery={genQuery} 
+        setParentAst={setAst} 
+        parentAst={ast} />: null
+      }
       <div style={{ marginTop: 20 }}>
         Query: <RenderQuery ast={ast} />
       </div>

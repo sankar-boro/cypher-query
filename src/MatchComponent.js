@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import CreateCols from "./CreateCols";
 
-function CreateComponent(props) {
+export default function MatchComponent(props) {
     const { activeParent, setParentAst, setGenQuery, genQuery, parentAst } = props;
     const [nodeName, setNodeName] = useState('');
     const [ast, setAst] = useState(null);
@@ -13,7 +13,7 @@ function CreateComponent(props) {
     return (
         <div>
             {ast && !ast.NODE.set ? <>
-                <div>CreateComponent</div>
+                <div>Which table</div>
             <div>
                 <input 
                     placeholder='Node name' 
@@ -24,12 +24,11 @@ function CreateComponent(props) {
                     setGenQuery(`${genQuery} ${nodeName}`)
                     setAst({...ast, NODE: { ...ast.NODE, name: nodeName, set: true }})
                     let cr = { PARENT: { ...parentAst.PARENT, values: parentAst.PARENT.values.map((x) => {
-                        if (x.name === 'CREATE') {
-                            return { ...x, name: 'CREATE', value: nodeName, set: true }
+                        if (x.name === 'MATCH') {
+                            return { ...x, name: 'MATCH', value: nodeName, set: true }
                         }
                         return x
                     }) }};
-                    console.log('cr', cr);
                     setParentAst(cr) 
                 }}>Create</button>
             </div>
@@ -38,5 +37,3 @@ function CreateComponent(props) {
         </div>
     );
 }
-
-export default CreateComponent;
